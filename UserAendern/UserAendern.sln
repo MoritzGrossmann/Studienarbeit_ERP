@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAendern.SAP", "src\UserAendern.SAP\UserAendern.SAP.csproj", "{4D45AF0B-2969-4E5D-B3A2-495D714F8AC9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAendern.UI", "src\UserAendern.UI\UserAendern.UI.csproj", "{80080993-1449-465E-9923-0926C88BF763}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "UserAendern.Domain", "src\UserAendern.Domain\UserAendern.Domain.fsproj", "{7E993589-4AD0-428B-A4AD-99C312AD9AB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAendern.WindowsForm", "src\UserAendern.WindowsForm\UserAendern.WindowsForm.csproj", "{F61110D5-4C34-4514-9110-F7149978A7F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAendern.Console", "src\UserAendern.Console\UserAendern.Console.csproj", "{74BAE182-2C02-4428-A7FA-864614F3F78B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAendern.SAP", "src\UserAendern.SAP\UserAendern.SAP.csproj", "{BA6A075C-206C-49F2-ACD6-7F68BCAE9EA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4D45AF0B-2969-4E5D-B3A2-495D714F8AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D45AF0B-2969-4E5D-B3A2-495D714F8AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D45AF0B-2969-4E5D-B3A2-495D714F8AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D45AF0B-2969-4E5D-B3A2-495D714F8AC9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80080993-1449-465E-9923-0926C88BF763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80080993-1449-465E-9923-0926C88BF763}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80080993-1449-465E-9923-0926C88BF763}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80080993-1449-465E-9923-0926C88BF763}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7E993589-4AD0-428B-A4AD-99C312AD9AB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E993589-4AD0-428B-A4AD-99C312AD9AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E993589-4AD0-428B-A4AD-99C312AD9AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +25,14 @@ Global
 		{F61110D5-4C34-4514-9110-F7149978A7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F61110D5-4C34-4514-9110-F7149978A7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F61110D5-4C34-4514-9110-F7149978A7F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74BAE182-2C02-4428-A7FA-864614F3F78B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74BAE182-2C02-4428-A7FA-864614F3F78B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74BAE182-2C02-4428-A7FA-864614F3F78B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74BAE182-2C02-4428-A7FA-864614F3F78B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA6A075C-206C-49F2-ACD6-7F68BCAE9EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA6A075C-206C-49F2-ACD6-7F68BCAE9EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA6A075C-206C-49F2-ACD6-7F68BCAE9EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA6A075C-206C-49F2-ACD6-7F68BCAE9EA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

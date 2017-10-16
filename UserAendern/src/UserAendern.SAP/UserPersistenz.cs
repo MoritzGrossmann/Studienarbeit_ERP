@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserAendern.Domain;
-using UserAendern.SAP.SapContext;
+using UserAendern.SAP.SapServiceReference;
 
 namespace UserAendern.SAP
 {
     public class UserPersistenz : ILoadUser, ISaveUser
     {
+
         private readonly Z_HH_USERClient _sapConnection = new Z_HH_USERClient()
         {
-            ClientCredentials = { UserName = { UserName = "wsuser", Password = "123456"}}
+            ClientCredentials = { UserName = { UserName = "wsuser", Password = "vorsichtloop" } }
         };
 
         public IEnumerable<User> GetUsers
@@ -20,6 +21,8 @@ namespace UserAendern.SAP
             get
             {
                 USERGetList list = new USERGetList();
+                list.MaxRows = 200;
+                list.MaxRowsSpecified = true;
                 USERGetListResponse response = _sapConnection.USERGetList(list);
                 return response.UserList.Select(FromSap);
             }
@@ -27,22 +30,30 @@ namespace UserAendern.SAP
 
         public User GetUserDetails(string username)
         {
-            USERGetDetail details = new USERGetDetail();
-            details.UserName = username;
+            USERGetDetail details = new USERGetDetail {UserName = username};
             USERGetDetailResponse userdetails = _sapConnection.USERGetDetail(details);
             return new User(userdetails.Address.Firstname, userdetails.Address.Lastname, userdetails.Address.Fullname, username);
         }    
         
         public bool CreateUser(User user)
         {
+            var _sapConnection = new Z_HH_USERClient()
+            {
+                ClientCredentials = { UserName = { UserName = "wsuser", Password = "vorsichtloop" } }
+            };
             USERCreate1 createUser = new USERCreate1();
             createUser.UserName = user.UserName;
+            createUser.Password = new Bapipwd() {Bapipwd1 = "init1234"};
             USERCreate1Response createResponse = _sapConnection.USERCreate1(createUser);
             return true;
         }
 
         public bool DeleteUser(User user)
         {
+            var _sapConnection = new Z_HH_USERClient()
+            {
+                ClientCredentials = { UserName = { UserName = "wsuser", Password = "vorsichtloop" } }
+            };
             USERDelete deleteUser = new USERDelete();
             deleteUser.UserName = user.UserName;
             USERDeleteResponse deleteResponse = _sapConnection.USERDelete(deleteUser);

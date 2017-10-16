@@ -85,7 +85,7 @@
       <Name>UserAendern.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\UserAendern.SAP\UserAendern.SAP.csproj">
-      <Project>{4d45af0b-2969-4e5d-b3a2-495d714f8ac9}</Project>
+      <Project>{ba6a075c-206c-49f2-acd6-7f68bcae9ea1}</Project>
       <Name>UserAendern.SAP</Name>
     </ProjectReference>
   </ItemGroup>

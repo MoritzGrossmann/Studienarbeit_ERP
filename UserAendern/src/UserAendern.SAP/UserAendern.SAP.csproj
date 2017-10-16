@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4D45AF0B-2969-4E5D-B3A2-495D714F8AC9}</ProjectGuid>
+    <ProjectGuid>{BA6A075C-206C-49F2-ACD6-7F68BCAE9EA1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UserAendern.SAP</RootNamespace>
@@ -43,177 +43,177 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserPersistenz.cs" />
-    <Compile Include="Connected Services\SapContext\Reference.cs">
+    <Compile Include="Class1.cs" />
+    <Compile Include="Connected Services\SapServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserPersistenz.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\SapContext\User.wsdl" />
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.BapiServiceTransactionCommitResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\User.wsdl" />
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.BapiServiceTransactionCommitResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.BapiServiceTransactionCommitResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.BapiServiceTransactionCommitResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.BapiServiceTransactionRollbackResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.BapiServiceTransactionRollbackResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.BapiServiceTransactionRollbackResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.BapiServiceTransactionRollbackResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERActgroupsAssignResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERActgroupsAssignResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERActgroupsAssignResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERActgroupsAssignResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERActgroupsDeleteResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERActgroupsDeleteResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERActgroupsDeleteResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERActgroupsDeleteResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERChangeResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERChangeResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERChangeResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERChangeResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERCloneResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERCloneResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERCloneResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERCloneResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERCreate1Response.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERCreate1Response.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERCreate1Response1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERCreate1Response1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERCreateResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERCreateResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERCreateResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERCreateResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERDeleteResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERDeleteResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERDeleteResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERDeleteResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERDisplayResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERDisplayResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERDisplayResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERDisplayResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERExistenceCheckResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERExistenceCheckResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERExistenceCheckResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERExistenceCheckResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERGetDetailResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERGetDetailResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERGetDetailResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERGetDetailResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERGetListResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERGetListResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERGetListResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERGetListResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocActgroupsAssignResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocActgroupsAssignResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocActgroupsAssignResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocActgroupsAssignResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocActgroupsDeleteResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocActgroupsDeleteResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocActgroupsDeleteResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocActgroupsDeleteResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocActgroupsReadResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocActgroupsReadResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocActgroupsReadResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocActgroupsReadResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLockResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLockResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLockResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLockResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocProfilesAssignResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocProfilesAssignResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocProfilesAssignResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocProfilesAssignResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocProfilesDeleteResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocProfilesDeleteResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocProfilesDeleteResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocProfilesDeleteResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocProfilesReadResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocProfilesReadResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERLocProfilesReadResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERLocProfilesReadResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERProfilesAssignResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERProfilesAssignResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERProfilesAssignResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERProfilesAssignResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERProfilesDeleteResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERProfilesDeleteResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERProfilesDeleteResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERProfilesDeleteResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERSystemAssignResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERSystemAssignResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERSystemAssignResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERSystemAssignResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERUnlockResponse.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERUnlockResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\SapContext\UserAendern.SAP.SapContext.USERUnlockResponse1.datasource">
+    <None Include="Connected Services\SapServiceReference\UserAendern.SAP.SapServiceReference.USERUnlockResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="User.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\SapContext\" />
+    <WCFMetadataStorage Include="Connected Services\SapServiceReference\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\SapContext\configuration91.svcinfo" />
+    <None Include="Connected Services\SapServiceReference\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\SapContext\configuration.svcinfo" />
+    <None Include="Connected Services\SapServiceReference\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\SapContext\Reference.svcmap">
+    <None Include="Connected Services\SapServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
