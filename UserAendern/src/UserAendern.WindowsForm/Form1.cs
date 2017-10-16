@@ -22,7 +22,10 @@ namespace UserAendern.WindowsForm
         private void button1_Click(object sender, EventArgs e)
         {
             ILoadUser userPersistenz = new UserPersistenz();
-            Console.WriteLine(userPersistenz.GetUsers);
+            foreach (var user in userPersistenz.GetUsers)
+            {
+                listbox_users.Items.Add(user);
+            }
         }
     }
 }

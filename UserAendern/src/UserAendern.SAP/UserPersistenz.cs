@@ -21,7 +21,7 @@ namespace UserAendern.SAP
             get
             {
                 USERGetList list = new USERGetList();
-                list.MaxRows = 200;
+                list.MaxRows = 500;
                 list.MaxRowsSpecified = true;
                 USERGetListResponse response = _sapConnection.USERGetList(list);
                 return response.UserList.Select(FromSap);
@@ -37,10 +37,6 @@ namespace UserAendern.SAP
         
         public bool CreateUser(User user)
         {
-            var _sapConnection = new Z_HH_USERClient()
-            {
-                ClientCredentials = { UserName = { UserName = "wsuser", Password = "vorsichtloop" } }
-            };
             USERCreate1 createUser = new USERCreate1();
             createUser.UserName = user.UserName;
             createUser.Password = new Bapipwd() {Bapipwd1 = "init1234"};
@@ -50,10 +46,6 @@ namespace UserAendern.SAP
 
         public bool DeleteUser(User user)
         {
-            var _sapConnection = new Z_HH_USERClient()
-            {
-                ClientCredentials = { UserName = { UserName = "wsuser", Password = "vorsichtloop" } }
-            };
             USERDelete deleteUser = new USERDelete();
             deleteUser.UserName = user.UserName;
             USERDeleteResponse deleteResponse = _sapConnection.USERDelete(deleteUser);
