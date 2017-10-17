@@ -12,20 +12,22 @@ using UserAendern.SAP;
 
 namespace UserAendern.WindowsForm
 {
-    public partial class Form1 : Form
+    public partial class BenutzerHinzufuegen : Form
     {
-        public Form1()
+        public BenutzerHinzufuegen()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
-            ILoadUser userPersistenz = new UserPersistenz();
-            foreach (var user in userPersistenz.GetUsers)
-            {
-                listbox_users.Items.Add(user);
-            }
+
+        }
+
+        private void btn_ok_Click(object sender, EventArgs e)
+        {
+            ISaveUser userpersistenz = new UserPersistenz();
+            userpersistenz.CreateUser(new User("", "", "", txt_username.Text));
         }
     }
 }

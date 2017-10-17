@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using UserAendern.Domain;
@@ -28,11 +29,11 @@ namespace UserAendern.SAP
             }
         }
 
-        public User GetUserDetails(string username)
+        public Address GetUserAddress(string username)
         {
             USERGetDetail details = new USERGetDetail {UserName = username};
             USERGetDetailResponse userdetails = _sapConnection.USERGetDetail(details);
-            return new User(userdetails.Address.Firstname, userdetails.Address.Lastname, userdetails.Address.Fullname, username);
+            return new Address(userdetails.Address.Street, userdetails.Address.HouseNo, userdetails.Address.PostlCod1, userdetails.Address.City);
         }    
         
         public bool CreateUser(User user)
@@ -52,14 +53,41 @@ namespace UserAendern.SAP
             return true;
         }
 
-        public bool ChangeUser(User user)
+        public bool ChangeUser(User user, Address address)
         {
-            throw new NotImplementedException();
+            USERChange changeUser = new USERChange();
+            changeUser.UserName = user.UserName;
+            changeUser.Address.City = address.city;
+            changeUser.Address.Street = address.Street;
+            changeUser.Address.HouseNo = address.Number;
+            changeUser.Address.PostlCod1 = address.postcode;
+            USERChangeResponse response = _sapConnection.USERChange(changeUser);
+            return true;
+        }
+
+        public bool LockUser(string user)
+        {
+            USERLock lockUser = new USERLock() { UserName = user};
+            USERLockResponse lockResponse = _sapConnection.USERLock(lockUser);
+            return true;
+        }
+
+        public bool UnlockUser(string user)
+        {
+            USERUnlock unlockUser = new USERUnlock() {UserName = user};
+            USERUnlockResponse unlockResponse = _sapConnection.USERUnlock(unlockUser);
+            String[] message = unlockResponse.Return.Select(FromBapiRet).ToArray();
+            return true;
         }
 
         private User FromSap(Bapiusname sapuser)
         {
             return new User(sapuser.Firstname, sapuser.Lastname, sapuser.Fullname, sapuser.Username);
+        }
+
+        private string FromBapiRet(Bapiret2 bapireturn)
+        {
+            return bapireturn.Message;
         }
     }
 }
