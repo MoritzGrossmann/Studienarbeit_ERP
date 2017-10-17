@@ -27,7 +27,9 @@ namespace UserAendern.WindowsForm
         private void btn_ok_Click(object sender, EventArgs e)
         {
             ISaveUser userpersistenz = new UserPersistenz();
-            userpersistenz.CreateUser(new User("", "", "", txt_username.Text));
+            SaveResponse response = userpersistenz.CreateUser(new User("", txt_lastname.Text, "", txt_username.Text));
+            MessageBox.Show(response.Message, response.Erfolg ? "Erfolg" : "Fehler", MessageBoxButtons.OK,
+                response.Erfolg ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
     }
 }

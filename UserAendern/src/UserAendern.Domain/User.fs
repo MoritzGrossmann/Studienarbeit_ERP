@@ -1,8 +1,8 @@
 ﻿namespace UserAendern.Domain
 
 type User = {
-    VorName : string
-    NachName : string
+    FirstName : string
+    LastName : string
     FullName : string
     UserName : string
 }
@@ -18,12 +18,22 @@ type UserDetails = {
         BirthName : string
     }
 
+type UserCreate = {
+    User: User
+    Address : Address
+}
+
+type SaveResponse = {
+    Erfolg : bool
+    Message : string
+}
+
 type ISaveUser = 
-        abstract CreateUser : user : User -> bool
-        abstract DeleteUser : user : User -> bool
-        abstract ChangeUser : user : User -> address : Address -> bool
-        abstract LockUser   : user : string -> bool
-        abstract UnlockUser : user : string -> bool
+        abstract CreateUser : user : User -> SaveResponse
+        abstract DeleteUser : user : User -> SaveResponse
+        abstract ChangeUser : user : User -> address : Address -> SaveResponse
+        abstract LockUser   : user : string -> SaveResponse
+        abstract UnlockUser : user : string -> SaveResponse
     
 
 type ILoadUser = 

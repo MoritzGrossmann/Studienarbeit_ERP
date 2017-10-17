@@ -17,9 +17,9 @@ namespace UserAendern.WindowsForm.View
         }
 
         
-        public override string ToString()
+        public override string ToString() 
         {
             return this.User.UserName;
         }
     }
-}
+} 

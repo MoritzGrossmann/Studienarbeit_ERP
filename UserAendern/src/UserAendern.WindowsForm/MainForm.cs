@@ -61,5 +61,13 @@ namespace UserAendern.WindowsForm
         {
 
         }
+
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            ISaveUser userpersistenz = new UserPersistenz();
+            var response = userpersistenz.DeleteUser(new User("", "", "", txt_username.Text));
+            MessageBox.Show(response.Message, response.Erfolg ? "Erfolg" : "Fehler", MessageBoxButtons.OK,
+                response.Erfolg ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+        }
     }
 }
