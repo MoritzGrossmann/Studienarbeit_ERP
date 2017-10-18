@@ -31,6 +31,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core, Version=4.4.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="sapnco">
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SAP\SAP_DotNetConnector3_Net40_x86\sapnco.dll</HintPath>
+    </Reference>
+    <Reference Include="sapnco_utils">
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\SAP\SAP_DotNetConnector3_Net40_x86\sapnco_utils.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -50,6 +56,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RfcUserPersistence.cs" />
+    <Compile Include="SapDestinationConfig.cs" />
     <Compile Include="UserPersistenz.cs" />
   </ItemGroup>
   <ItemGroup>

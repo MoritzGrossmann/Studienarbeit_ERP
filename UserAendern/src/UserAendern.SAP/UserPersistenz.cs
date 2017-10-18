@@ -9,13 +9,18 @@ using UserAendern.SAP.SapServiceReference;
 
 namespace UserAendern.SAP
 {
-    public class UserPersistenz : ILoadUser, ISaveUser
+    public class UserPersistenz //: ILoadUser, ISaveUser
     {
 
         private readonly Z_HH_USERClient _sapConnection = new Z_HH_USERClient()
         {
             ClientCredentials = { UserName = { UserName = "wsuser", Password = "vorsichtloop" } }
         };
+
+        public UserDetails GetUserDetail(string username)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<User> GetUsers
         {
@@ -93,10 +98,10 @@ namespace UserAendern.SAP
         {
             USERChange changeUser = new USERChange();
             changeUser.UserName = user.UserName;
-            changeUser.Address.City = address.city;
+            changeUser.Address.City = address.City;
             changeUser.Address.Street = address.Street;
             changeUser.Address.HouseNo = address.Number;
-            changeUser.Address.PostlCod1 = address.postcode;
+            changeUser.Address.PostlCod1 = address.Postcode;
 
             try
             {

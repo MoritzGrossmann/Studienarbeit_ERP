@@ -1,5 +1,7 @@
 ﻿namespace UserAendern.Domain
 
+open System.Security.Cryptography.X509Certificates
+
 type User = {
     FirstName : string
     LastName : string
@@ -10,13 +12,23 @@ type User = {
 type Address = {
     Street : string
     Number : string
-    postcode : string
-    city : string
+    Postcode : string
+    City : string
+}
+
+type Lock = {
+    WrongLogOn : bool
+    NoPassword : bool
+    LocalLock : bool
+    GlobalLock : bool
 }
 
 type UserDetails = {
-        BirthName : string
-    }
+    Firstname: string
+    Lastname : string
+    Address : Address
+    IsLocked : Lock
+}
 
 type UserCreate = {
     User: User
@@ -28,15 +40,35 @@ type SaveResponse = {
     Message : string
 }
 
+type BapiReturnType 
+    = Success
+    | Error
+    | Warning
+    | Info
+    | Abort
+
+type BapiReturn = {
+    Type : BapiReturnType
+    Message : string
+}
+
+
+
+type SapBool
+    = X
+    | Nothing
+    | Other
+
 type ISaveUser = 
-        abstract CreateUser : user : User -> SaveResponse
-        abstract DeleteUser : user : User -> SaveResponse
-        abstract ChangeUser : user : User -> address : Address -> SaveResponse
-        abstract LockUser   : user : string -> SaveResponse
-        abstract UnlockUser : user : string -> SaveResponse
+        abstract CreateUser : user : User -> BapiReturn
+        abstract DeleteUser : user : string -> BapiReturn
+        abstract ChangeUser : user : User -> userDetails : UserDetails -> BapiReturn
+        abstract LockUser   : user : string -> BapiReturn
+        abstract UnlockUser : user : string -> BapiReturn
     
 
 type ILoadUser = 
     abstract GetUsers : User seq
     abstract GetUserAddress : username : string -> Address
+    abstract GetUserDetail : username : string -> UserDetails
     

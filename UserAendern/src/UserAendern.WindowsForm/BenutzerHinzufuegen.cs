@@ -26,10 +26,30 @@ namespace UserAendern.WindowsForm
 
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            ISaveUser userpersistenz = new UserPersistenz();
-            SaveResponse response = userpersistenz.CreateUser(new User("", txt_lastname.Text, "", txt_username.Text));
-            MessageBox.Show(response.Message, response.Erfolg ? "Erfolg" : "Fehler", MessageBoxButtons.OK,
-                response.Erfolg ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+            ISaveUser userpersistenz = new RfcUserPersistence();
+            BapiReturn response = userpersistenz.CreateUser(new User("", txt_lastname.Text, "", txt_username.Text));
+            MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
+                GetIconFromBapiReturn(response));
+        }
+
+        private MessageBoxIcon GetIconFromBapiReturn(BapiReturn bapiReturn)
+        {
+            if (bapiReturn.Type.IsInfo)
+            {
+                return MessageBoxIcon.Information;
+            }
+            if (bapiReturn.Type.IsError)
+            {
+                return MessageBoxIcon.Error;
+            }
+            if (bapiReturn.Type.IsWarning)
+            {
+                return MessageBoxIcon.Warning;
+            }
+            else
+            {
+                return MessageBoxIcon.None;
+            }
         }
     }
 }
