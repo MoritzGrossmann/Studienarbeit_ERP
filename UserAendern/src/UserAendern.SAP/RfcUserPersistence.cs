@@ -112,9 +112,10 @@ namespace UserAendern.SAP
             RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
             RfcRepository rep = dest.Repository;
             var fun = rep.CreateFunction("BAPI_USER_CHANGE");
-            fun.SetValue("USERNAME", user);
-            fun.SetValue("ADDRESSX", "X");
+            fun.SetValue("USERNAME", user.UserName);
+            //fun.SetValue("ADDRESSX", "X");
 
+            //TODO set Address
           
             fun.Invoke(dest);
 

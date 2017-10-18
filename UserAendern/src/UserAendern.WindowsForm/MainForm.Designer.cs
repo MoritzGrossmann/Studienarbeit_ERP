@@ -31,9 +31,15 @@
             this.listbox_users = new System.Windows.Forms.ListBox();
             this.txt_username = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btn_lock = new System.Windows.Forms.Button();
-            this.btn_delete = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_save = new System.Windows.Forms.Button();
+            this.txt_firstname = new System.Windows.Forms.TextBox();
+            this.btn_lock = new System.Windows.Forms.Button();
+            this.txt_lastname = new System.Windows.Forms.TextBox();
+            this.btn_delete = new System.Windows.Forms.Button();
+            this.btn_unlock = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.txt_city = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txt_postcode = new System.Windows.Forms.TextBox();
@@ -43,14 +49,8 @@
             this.txt_street = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_unlock = new System.Windows.Forms.Button();
             this.btn_add_user = new System.Windows.Forms.Button();
             this.txt_query = new System.Windows.Forms.TextBox();
-            this.btn_save = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txt_lastname = new System.Windows.Forms.TextBox();
-            this.txt_firstname = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -60,17 +60,19 @@
             this.listbox_users.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listbox_users.FormattingEnabled = true;
+            this.listbox_users.HorizontalScrollbar = true;
             this.listbox_users.ItemHeight = 16;
-            this.listbox_users.Location = new System.Drawing.Point(792, 60);
+            this.listbox_users.Location = new System.Drawing.Point(613, 72);
             this.listbox_users.Margin = new System.Windows.Forms.Padding(4);
             this.listbox_users.Name = "listbox_users";
-            this.listbox_users.Size = new System.Drawing.Size(181, 612);
+            this.listbox_users.Size = new System.Drawing.Size(181, 404);
             this.listbox_users.TabIndex = 1;
             this.listbox_users.SelectedIndexChanged += new System.EventHandler(this.listbox_users_SelectedIndexChanged);
             this.listbox_users.SelectedValueChanged += new System.EventHandler(this.listbox_users_SelectedValueChanged);
             // 
             // txt_username
             // 
+            this.txt_username.Enabled = false;
             this.txt_username.Location = new System.Drawing.Point(88, 23);
             this.txt_username.Margin = new System.Windows.Forms.Padding(4);
             this.txt_username.Name = "txt_username";
@@ -82,53 +84,29 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.btn_save);
-            this.groupBox1.Controls.Add(this.btn_lock);
-            this.groupBox1.Controls.Add(this.btn_delete);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txt_username);
-            this.groupBox1.Controls.Add(this.btn_unlock);
             this.groupBox1.Location = new System.Drawing.Point(13, 31);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(771, 599);
+            this.groupBox1.Size = new System.Drawing.Size(592, 479);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Benutzerinformationen";
-            // 
-            // btn_lock
-            // 
-            this.btn_lock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_lock.Location = new System.Drawing.Point(404, 560);
-            this.btn_lock.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_lock.Name = "btn_lock";
-            this.btn_lock.Size = new System.Drawing.Size(170, 28);
-            this.btn_lock.TabIndex = 9;
-            this.btn_lock.Text = "Benutzer Sperren";
-            this.btn_lock.UseVisualStyleBackColor = true;
-            this.btn_lock.Click += new System.EventHandler(this.btn_lock_Click);
-            // 
-            // btn_delete
-            // 
-            this.btn_delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_delete.Location = new System.Drawing.Point(9, 560);
-            this.btn_delete.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_delete.Name = "btn_delete";
-            this.btn_delete.Size = new System.Drawing.Size(170, 28);
-            this.btn_delete.TabIndex = 10;
-            this.btn_delete.Text = "Benutzer Löschen";
-            this.btn_delete.UseVisualStyleBackColor = true;
-            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.btn_save);
             this.groupBox2.Controls.Add(this.txt_firstname);
+            this.groupBox2.Controls.Add(this.btn_lock);
             this.groupBox2.Controls.Add(this.txt_lastname);
+            this.groupBox2.Controls.Add(this.btn_delete);
+            this.groupBox2.Controls.Add(this.btn_unlock);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txt_city);
@@ -143,10 +121,89 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(754, 490);
+            this.groupBox2.Size = new System.Drawing.Size(575, 408);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Details";
+            // 
+            // btn_save
+            // 
+            this.btn_save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_save.Location = new System.Drawing.Point(8, 265);
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Size = new System.Drawing.Size(170, 28);
+            this.btn_save.TabIndex = 11;
+            this.btn_save.Text = "Speichern";
+            this.btn_save.UseVisualStyleBackColor = true;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
+            // 
+            // txt_firstname
+            // 
+            this.txt_firstname.Location = new System.Drawing.Point(170, 21);
+            this.txt_firstname.Name = "txt_firstname";
+            this.txt_firstname.Size = new System.Drawing.Size(132, 22);
+            this.txt_firstname.TabIndex = 12;
+            // 
+            // btn_lock
+            // 
+            this.btn_lock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_lock.Location = new System.Drawing.Point(8, 336);
+            this.btn_lock.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_lock.Name = "btn_lock";
+            this.btn_lock.Size = new System.Drawing.Size(170, 28);
+            this.btn_lock.TabIndex = 9;
+            this.btn_lock.Text = "Benutzer Sperren";
+            this.btn_lock.UseVisualStyleBackColor = true;
+            this.btn_lock.Click += new System.EventHandler(this.btn_lock_Click);
+            // 
+            // txt_lastname
+            // 
+            this.txt_lastname.Location = new System.Drawing.Point(170, 53);
+            this.txt_lastname.Name = "txt_lastname";
+            this.txt_lastname.Size = new System.Drawing.Size(132, 22);
+            this.txt_lastname.TabIndex = 11;
+            // 
+            // btn_delete
+            // 
+            this.btn_delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_delete.Location = new System.Drawing.Point(8, 372);
+            this.btn_delete.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(170, 28);
+            this.btn_delete.TabIndex = 10;
+            this.btn_delete.Text = "Benutzer Löschen";
+            this.btn_delete.UseVisualStyleBackColor = true;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
+            // 
+            // btn_unlock
+            // 
+            this.btn_unlock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_unlock.Location = new System.Drawing.Point(8, 300);
+            this.btn_unlock.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_unlock.Name = "btn_unlock";
+            this.btn_unlock.Size = new System.Drawing.Size(170, 28);
+            this.btn_unlock.TabIndex = 0;
+            this.btn_unlock.Text = "Benutzer Entsperren";
+            this.btn_unlock.UseVisualStyleBackColor = true;
+            this.btn_unlock.Click += new System.EventHandler(this.btn_unlock_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 56);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 17);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Nachname";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 24);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 17);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Vorname";
             // 
             // txt_city
             // 
@@ -198,7 +255,7 @@
             // 
             // txt_number
             // 
-            this.txt_number.Location = new System.Drawing.Point(488, 86);
+            this.txt_number.Location = new System.Drawing.Point(484, 86);
             this.txt_number.Margin = new System.Windows.Forms.Padding(4);
             this.txt_number.Name = "txt_number";
             this.txt_number.Size = new System.Drawing.Size(76, 22);
@@ -232,27 +289,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "username";
             // 
-            // btn_unlock
-            // 
-            this.btn_unlock.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_unlock.Location = new System.Drawing.Point(206, 560);
-            this.btn_unlock.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_unlock.Name = "btn_unlock";
-            this.btn_unlock.Size = new System.Drawing.Size(170, 28);
-            this.btn_unlock.TabIndex = 0;
-            this.btn_unlock.Text = "Benutzer Entsperren";
-            this.btn_unlock.UseVisualStyleBackColor = true;
-            this.btn_unlock.Click += new System.EventHandler(this.btn_unlock_Click);
-            // 
             // btn_add_user
             // 
             this.btn_add_user.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_add_user.Location = new System.Drawing.Point(13, 638);
+            this.btn_add_user.Location = new System.Drawing.Point(612, 482);
             this.btn_add_user.Margin = new System.Windows.Forms.Padding(4);
             this.btn_add_user.Name = "btn_add_user";
-            this.btn_add_user.Size = new System.Drawing.Size(771, 33);
+            this.btn_add_user.Size = new System.Drawing.Size(181, 28);
             this.btn_add_user.TabIndex = 4;
             this.btn_add_user.Text = "Benutzer hinzufügen";
             this.btn_add_user.UseVisualStyleBackColor = true;
@@ -261,64 +305,23 @@
             // txt_query
             // 
             this.txt_query.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_query.Location = new System.Drawing.Point(792, 31);
+            this.txt_query.Location = new System.Drawing.Point(612, 43);
             this.txt_query.Name = "txt_query";
             this.txt_query.Size = new System.Drawing.Size(181, 22);
             this.txt_query.TabIndex = 5;
             this.txt_query.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_query_KeyDown);
             // 
-            // btn_save
-            // 
-            this.btn_save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_save.Location = new System.Drawing.Point(593, 560);
-            this.btn_save.Name = "btn_save";
-            this.btn_save.Size = new System.Drawing.Size(170, 28);
-            this.btn_save.TabIndex = 11;
-            this.btn_save.Text = "Speichern";
-            this.btn_save.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 24);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 17);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Vorname";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 56);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(76, 17);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Nachname";
-            // 
-            // txt_lastname
-            // 
-            this.txt_lastname.Location = new System.Drawing.Point(170, 53);
-            this.txt_lastname.Name = "txt_lastname";
-            this.txt_lastname.Size = new System.Drawing.Size(132, 22);
-            this.txt_lastname.TabIndex = 11;
-            // 
-            // txt_firstname
-            // 
-            this.txt_firstname.Location = new System.Drawing.Point(170, 21);
-            this.txt_firstname.Name = "txt_firstname";
-            this.txt_firstname.Size = new System.Drawing.Size(132, 22);
-            this.txt_firstname.TabIndex = 12;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(991, 686);
+            this.ClientSize = new System.Drawing.Size(812, 523);
             this.Controls.Add(this.txt_query);
             this.Controls.Add(this.btn_add_user);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.listbox_users);
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(830, 570);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);

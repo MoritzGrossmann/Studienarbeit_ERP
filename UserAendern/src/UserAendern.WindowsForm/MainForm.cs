@@ -18,9 +18,13 @@ namespace UserAendern.WindowsForm
     {
         private IEnumerable<User> _users = new List<User>();
 
-        private ILoadUser _userpersistenceLoad = new RfcUserPersistence();
+        private User _currentUser;
 
-        private ISaveUser _userpersistenceSave = new RfcUserPersistence();
+        private UserDetails _currentUserDetails;
+
+        private readonly ILoadUser _userpersistenceLoad = new RfcUserPersistence();
+
+        private readonly ISaveUser _userpersistenceSave = new RfcUserPersistence();
 
         public MainForm()
         {
@@ -42,7 +46,11 @@ namespace UserAendern.WindowsForm
             string user = listbox_users.SelectedItem.ToString();
             txt_username.Text = user;
 
+            _currentUser = new User("", "", "", user);
+
             var details = _userpersistenceLoad.GetUserDetail(user);
+
+            _currentUserDetails = details;
 
             txt_street.Text = details.Address.Street;
             txt_number.Text = details.Address.Number;
@@ -127,6 +135,13 @@ namespace UserAendern.WindowsForm
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+            var response = _userpersistenceSave.ChangeUser(_currentUser, _currentUserDetails);
+            MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
+                GetIconFromBapiReturn(response));
         }
     }
 }
