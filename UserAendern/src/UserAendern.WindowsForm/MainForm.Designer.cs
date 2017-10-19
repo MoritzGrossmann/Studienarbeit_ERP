@@ -291,8 +291,7 @@
             // 
             // btn_add_user
             // 
-            this.btn_add_user.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_add_user.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_add_user.Location = new System.Drawing.Point(612, 482);
             this.btn_add_user.Margin = new System.Windows.Forms.Padding(4);
             this.btn_add_user.Name = "btn_add_user";
