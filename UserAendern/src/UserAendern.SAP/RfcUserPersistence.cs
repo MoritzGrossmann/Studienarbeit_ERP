@@ -73,7 +73,6 @@ namespace UserAendern.SAP
                 RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
                 RfcRepository rep = dest.Repository;
                 IRfcFunction fun = rep.CreateFunction("BAPI_USER_GETLIST");
-                //fun.SetValue("MAX_ROWS", "50");
                 fun.Invoke(dest);
                 IRfcTable table = fun.GetTable("USERLIST");
 
@@ -90,7 +89,28 @@ namespace UserAendern.SAP
 
         public BapiReturn CreateUser(User user)
         {
-            throw new NotImplementedException();
+            RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
+            RfcRepository repository = dest.Repository;
+            IRfcFunction fun = repository.CreateFunction("BAPI_USER_CREATE1");
+
+            var address = repository.GetStructureMetadata("BAPIADDR3").CreateStructure();
+            var logond = repository.GetStructureMetadata("BAPILOGOND").CreateStructure();
+            var password = repository.GetStructureMetadata("BAPIPWD").CreateStructure();
+
+            address.SetValue("LASTNAME", user.LastName);
+            password.SetValue("BAPIPWD", "init1234");
+
+            fun.SetValue("USERNAME", user.UserName);
+            fun.SetValue("ADDRESS", address);
+            fun.SetValue("PASSWORD", password);
+            fun.SetValue("LOGONDATA", logond);
+
+            fun.Invoke(dest);
+
+            IRfcTable returnTable = fun.GetTable("RETURN");
+            var firstreturn = returnTable[0];
+
+            return new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));
         }
 
         public BapiReturn DeleteUser(string user)
@@ -138,7 +158,6 @@ namespace UserAendern.SAP
             fun.SetValue("ADDRESSX", addressx);
             fun.Invoke(dest);
             IRfcTable returnTable = fun.GetTable("RETURN");
-
 
             var commit = rep.CreateFunction("BAPI_TRANSACTION_COMMIT");
             commit.Invoke(dest);
