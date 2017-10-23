@@ -23,8 +23,8 @@ namespace UserAendern.SAP
         {
 
             RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository rep = dest.Repository;
-            var fun = rep.CreateFunction("BAPI_USER_GET_DETAIL");
+            RfcRepository repository = dest.Repository;
+            var fun = repository.CreateFunction("BAPI_USER_GET_DETAIL");
             fun.SetValue("USERNAME", username);
             fun.Invoke(dest);
             IRfcStructure address = fun.GetStructure("ADDRESS");
@@ -40,8 +40,8 @@ namespace UserAendern.SAP
         public UserDetails GetUserDetail(string username)
         {
             RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository rep = dest.Repository;
-            var fun = rep.CreateFunction("BAPI_USER_GET_DETAIL");
+            RfcRepository repository = dest.Repository;
+            var fun = repository.CreateFunction("BAPI_USER_GET_DETAIL");
             
             fun.SetValue("USERNAME", username);
             fun.Invoke(dest);
@@ -71,8 +71,8 @@ namespace UserAendern.SAP
             get
             {
                 RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-                RfcRepository rep = dest.Repository;
-                IRfcFunction fun = rep.CreateFunction("BAPI_USER_GETLIST");
+                RfcRepository repository = dest.Repository;
+                IRfcFunction fun = repository.CreateFunction("BAPI_USER_GETLIST");
                 fun.Invoke(dest);
                 IRfcTable table = fun.GetTable("USERLIST");
 
@@ -110,14 +110,24 @@ namespace UserAendern.SAP
             IRfcTable returnTable = fun.GetTable("RETURN");
             var firstreturn = returnTable[0];
 
-            return new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));
+            var response = new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));
+
+            if (response.Type.Equals(BapiReturnType.Error))
+            {
+                repository.CreateFunction("BAPI_TRANSACTION_ROLLBACK").Invoke(dest);
+            }
+            else
+            {
+                repository.CreateFunction("BAPI_TRANSACTION_COMMIT").Invoke(dest);
+            }
+            return response;
         }
 
         public BapiReturn DeleteUser(string user)
         {
             RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository rep = dest.Repository;
-            var fun = rep.CreateFunction("BAPI_USER_DELETE");
+            RfcRepository repository = dest.Repository;
+            var fun = repository.CreateFunction("BAPI_USER_DELETE");
             fun.SetValue("USERNAME", user);
             fun.Invoke(dest);
 
@@ -130,12 +140,12 @@ namespace UserAendern.SAP
         public BapiReturn ChangeUser(User user, UserDetails userDetails)
         {
             RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository rep = dest.Repository;
+            RfcRepository repository = dest.Repository;
 
-            var address = rep.GetStructureMetadata("BAPIADDR3").CreateStructure();
-            var addressx = rep.GetStructureMetadata("BAPIADDR3X").CreateStructure();
+            var address = repository.GetStructureMetadata("BAPIADDR3").CreateStructure();
+            var addressx = repository.GetStructureMetadata("BAPIADDR3X").CreateStructure();
 
-            var fun = rep.CreateFunction("BAPI_USER_CHANGE");
+            var fun = repository.CreateFunction("BAPI_USER_CHANGE");
 
             fun.SetValue("USERNAME", user.UserName);
 
@@ -157,22 +167,29 @@ namespace UserAendern.SAP
             fun.SetValue("ADDRESS", address);
             fun.SetValue("ADDRESSX", addressx);
             fun.Invoke(dest);
-            IRfcTable returnTable = fun.GetTable("RETURN");
 
-            var commit = rep.CreateFunction("BAPI_TRANSACTION_COMMIT");
-            commit.Invoke(dest);
-            var commitResponse = commit.GetStructure("RETURN");
+            IRfcTable returnTable = fun.GetTable("RETURN");
 
             var firstreturn = returnTable[0];
 
-            return new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));
+            var response = new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));
+
+            if (response.Type.Equals(BapiReturnType.Error))
+            {
+                repository.CreateFunction("BAPI_TRANSACTION_ROLLBACK").Invoke(dest);
+            }
+            else
+            {
+                repository.CreateFunction("BAPI_TRANSACTION_COMMIT").Invoke(dest);
+            }
+            return response;
         }
 
         public BapiReturn LockUser(string user)
         {
             RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository rep = dest.Repository;
-            var fun = rep.CreateFunction("BAPI_USER_LOCK");
+            RfcRepository repository = dest.Repository;
+            var fun = repository.CreateFunction("BAPI_USER_LOCK");
             fun.SetValue("USERNAME", user);
             fun.Invoke(dest);
             IRfcTable returnTable = fun.GetTable("RETURN");
@@ -184,8 +201,8 @@ namespace UserAendern.SAP
         public BapiReturn UnlockUser(string user)
         {
             RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository rep = dest.Repository;
-            var fun = rep.CreateFunction("BAPI_USER_UNLOCK");
+            RfcRepository repository = dest.Repository;
+            var fun = repository.CreateFunction("BAPI_USER_UNLOCK");
             fun.SetValue("USERNAME", user);
             fun.Invoke(dest);
 
