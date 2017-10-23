@@ -18,7 +18,7 @@ namespace UserAendern.SAP
             param.Add(RfcConfigParameters.Name, "QA");
             param.Add(RfcConfigParameters.Client, "902");
             param.Add(RfcConfigParameters.User, "IDES-001");
-            param.Add(RfcConfigParameters.Password, "Troopers95?");
+            param.Add(RfcConfigParameters.Password, "IDES-001?");
             param.Add(RfcConfigParameters.Language, "DE");
             param.Add(RfcConfigParameters.AppServerHost, "/H/proxy.hof-university.de/S/3299/H/saprouter.hcc.in.tum.de/S/3299/H/i48lp1");
             param.Add(RfcConfigParameters.SystemNumber, "48");
