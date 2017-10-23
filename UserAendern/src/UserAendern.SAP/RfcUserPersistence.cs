@@ -111,15 +111,39 @@ namespace UserAendern.SAP
         {
             RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
             RfcRepository rep = dest.Repository;
+
+            var address = rep.GetStructureMetadata("BAPIADDR3").CreateStructure();
+            var addressx = rep.GetStructureMetadata("BAPIADDR3X").CreateStructure();
+
             var fun = rep.CreateFunction("BAPI_USER_CHANGE");
+
             fun.SetValue("USERNAME", user.UserName);
-            //fun.SetValue("ADDRESSX", "X");
 
-            //TODO set Address
-          
+            address.SetValue("STREET", userDetails.Address.Street);
+            address.SetValue("HOUSE_NO", userDetails.Address.Number);
+            address.SetValue("POSTL_COD1", userDetails.Address.Postcode);
+            address.SetValue("CITY", userDetails.Address.City);
+            address.SetValue("FIRSTNAME", userDetails.Firstname);
+            address.SetValue("LASTNAME", userDetails.Lastname);
+
+
+            addressx.SetValue("STREET", "X");
+            addressx.SetValue("HOUSE_NO", "X");
+            addressx.SetValue("POSTL_COD1", "X");
+            addressx.SetValue("CITY", "X");
+            addressx.SetValue("FIRSTNAME", "X");
+            addressx.SetValue("LASTNAME", "X");
+
+            fun.SetValue("ADDRESS", address);
+            fun.SetValue("ADDRESSX", addressx);
             fun.Invoke(dest);
-
             IRfcTable returnTable = fun.GetTable("RETURN");
+
+
+            var commit = rep.CreateFunction("BAPI_TRANSACTION_COMMIT");
+            commit.Invoke(dest);
+            var commitResponse = commit.GetStructure("RETURN");
+
             var firstreturn = returnTable[0];
 
             return new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));

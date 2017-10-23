@@ -139,7 +139,7 @@ namespace UserAendern.WindowsForm
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            var response = _userpersistenceSave.ChangeUser(_currentUser, _currentUserDetails);
+            var response = _userpersistenceSave.ChangeUser(_currentUser, new UserDetails(txt_firstname.Text, txt_lastname.Text, new Address(txt_street.Text, txt_number.Text, txt_postcode.Text, txt_city.Text), _currentUserDetails.IsLocked));
             MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
                 GetIconFromBapiReturn(response));
         }
