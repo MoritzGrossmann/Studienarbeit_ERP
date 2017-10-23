@@ -133,8 +133,17 @@ namespace UserAendern.SAP
 
             IRfcTable returnTable = fun.GetTable("RETURN");
             var firstreturn = returnTable[0];
+            var response = new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));
 
-            return new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));
+            if (response.Type.Equals(BapiReturnType.Error))
+            {
+                repository.CreateFunction("BAPI_TRANSACTION_ROLLBACK").Invoke(dest);
+            }
+            else
+            {
+                repository.CreateFunction("BAPI_TRANSACTION_COMMIT").Invoke(dest);
+            }
+            return response;
         }
 
         public BapiReturn ChangeUser(User user, UserDetails userDetails)

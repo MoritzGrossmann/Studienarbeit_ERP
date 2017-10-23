@@ -29,16 +29,7 @@ namespace UserAendern.WindowsForm
         public MainForm()
         {
             InitializeComponent();
-            _users = _userpersistenceLoad.GetUsers;
-            foreach (var user in _users)
-            {
-                listbox_users.Items.Add(new UserRow(user));
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
+            RefreshUsers();
         }
 
         private void listbox_users_SelectedValueChanged(object sender, EventArgs e)
@@ -67,20 +58,10 @@ namespace UserAendern.WindowsForm
                 GetIconFromBapiReturn(response));
         }
 
-        private void listbox_users_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btn_add_user_Click(object sender, EventArgs e)
         {
             BenutzerHinzufuegen form = new BenutzerHinzufuegen();
             form.Show();
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btn_delete_Click(object sender, EventArgs e)
@@ -98,10 +79,14 @@ namespace UserAendern.WindowsForm
             if (e.KeyCode == Keys.Enter)
             {
                 listbox_users.Items.Clear();
-                foreach (var user in _users.Where(u => u.UserName.Contains(txt_query.Text)))
+                foreach (var user in _users.Where(u => u.UserName.ToUpper().Contains(txt_query.Text.ToUpper())))
                 {
                     listbox_users.Items.Add(new UserRow(user));
                 }
+            }
+            if (e.KeyCode == Keys.Back && txt_query.Text.Equals(""))
+            {
+                RefreshUsers();
             }
         }
 
@@ -126,15 +111,14 @@ namespace UserAendern.WindowsForm
             {
                 return MessageBoxIcon.Warning;
             }
+            if (bapiReturn.Type.IsSuccess)
+            {
+                return MessageBoxIcon.Asterisk;
+            }
             else
             {
                 return MessageBoxIcon.None;
             }
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -142,6 +126,32 @@ namespace UserAendern.WindowsForm
             var response = _userpersistenceSave.ChangeUser(_currentUser, new UserDetails(txt_firstname.Text, txt_lastname.Text, new Address(txt_street.Text, txt_number.Text, txt_postcode.Text, txt_city.Text), _currentUserDetails.IsLocked));
             MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
                 GetIconFromBapiReturn(response));
+        }
+
+        private void RefreshUsers()
+        {
+            _users = _userpersistenceLoad.GetUsers;
+            listbox_users.Items.Clear();
+
+            if (txt_query.Text.Trim().Equals(""))
+            {
+                foreach (var user in _users)
+                {
+                    listbox_users.Items.Add(new UserRow(user));
+                }
+            }
+            else
+            {
+                foreach (var user in _users.Where(u => u.UserName.ToUpper().Contains(txt_query.Text.ToUpper())))
+                {
+                    listbox_users.Items.Add(new UserRow(user));
+                }
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            RefreshUsers();
         }
     }
 }

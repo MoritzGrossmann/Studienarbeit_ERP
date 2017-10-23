@@ -30,6 +30,10 @@ namespace UserAendern.WindowsForm
             BapiReturn response = userpersistenz.CreateUser(new User("", txt_lastname.Text, "", txt_username.Text));
             MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
                 GetIconFromBapiReturn(response));
+            if (response.Type.Equals(BapiReturnType.Success))
+            {
+                this.Hide();
+            }
         }
 
         private MessageBoxIcon GetIconFromBapiReturn(BapiReturn bapiReturn)
@@ -45,6 +49,10 @@ namespace UserAendern.WindowsForm
             if (bapiReturn.Type.IsWarning)
             {
                 return MessageBoxIcon.Warning;
+            }
+            if (bapiReturn.Type.IsSuccess)
+            {
+                return MessageBoxIcon.Asterisk;
             }
             else
             {
