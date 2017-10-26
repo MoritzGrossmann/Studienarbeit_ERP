@@ -34,21 +34,28 @@ namespace UserAendern.WindowsForm
 
         private void listbox_users_SelectedValueChanged(object sender, EventArgs e)
         {
-            string user = listbox_users.SelectedItem.ToString();
-            txt_username.Text = user;
+            try
+            {
+                string user = listbox_users.SelectedItem.ToString();
+                txt_username.Text = user;
 
-            _currentUser = new User("", "", "", user);
+                _currentUser = new User("", "", "", user);
 
-            var details = _userpersistenceLoad.GetUserDetail(user);
+                var details = _userpersistenceLoad.GetUserDetail(user);
 
-            _currentUserDetails = details;
+                _currentUserDetails = details;
 
-            txt_street.Text = details.Address.Street;
-            txt_number.Text = details.Address.Number;
-            txt_postcode.Text = details.Address.Postcode;
-            txt_city.Text = details.Address.City;
-            txt_firstname.Text = details.Firstname;
-            txt_lastname.Text = details.Lastname;
+                txt_street.Text = details.Address.Street;
+                txt_number.Text = details.Address.Number;
+                txt_postcode.Text = details.Address.Postcode;
+                txt_city.Text = details.Address.City;
+                txt_firstname.Text = details.Firstname;
+                txt_lastname.Text = details.Lastname;
+            }
+            catch (NullReferenceException ex)
+            {
+                
+            }
         }
 
         private void btn_unlock_Click(object sender, EventArgs e)
@@ -68,7 +75,10 @@ namespace UserAendern.WindowsForm
         {
 
             var response = _userpersistenceSave.DeleteUser(txt_username.Text);
-
+            if (response.Type.IsSuccess)
+            {
+                RefreshUsers();
+            }
 
             MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
                 GetIconFromBapiReturn(response));
@@ -84,7 +94,7 @@ namespace UserAendern.WindowsForm
                     listbox_users.Items.Add(new UserRow(user));
                 }
             }
-            if (e.KeyCode == Keys.Back && txt_query.Text.Equals(""))
+            if (e.KeyCode == Keys.Back && txt_query.Text.Length < 2)
             {
                 RefreshUsers();
             }
@@ -130,22 +140,30 @@ namespace UserAendern.WindowsForm
 
         private void RefreshUsers()
         {
-            _users = _userpersistenceLoad.GetUsers;
-            listbox_users.Items.Clear();
 
-            if (txt_query.Text.Trim().Equals(""))
+            try
             {
-                foreach (var user in _users)
+                _users = _userpersistenceLoad.GetUsers;
+                listbox_users.Items.Clear();
+
+                if (txt_query.Text.Trim().Equals(""))
                 {
-                    listbox_users.Items.Add(new UserRow(user));
+                    foreach (var user in _users)
+                    {
+                        listbox_users.Items.Add(new UserRow(user));
+                    }
+                }
+                else
+                {
+                    foreach (var user in _users.Where(u => u.UserName.ToUpper().Contains(txt_query.Text.ToUpper())))
+                    {
+                        listbox_users.Items.Add(new UserRow(user));
+                    }
                 }
             }
-            else
+            catch (Exception)
             {
-                foreach (var user in _users.Where(u => u.UserName.ToUpper().Contains(txt_query.Text.ToUpper())))
-                {
-                    listbox_users.Items.Add(new UserRow(user));
-                }
+                MessageBox.Show("Keine Verbindung zum SAP-Server", "Fehler",  MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

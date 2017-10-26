@@ -26,13 +26,22 @@ namespace UserAendern.WindowsForm
 
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            ISaveUser userpersistenz = new RfcUserPersistence();
-            BapiReturn response = userpersistenz.CreateUser(new User("", txt_lastname.Text, "", txt_username.Text));
-            MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
-                GetIconFromBapiReturn(response));
-            if (response.Type.Equals(BapiReturnType.Success))
+            if (txt_password.Text != txt_password_wdh.Text)
             {
-                this.Hide();
+                MessageBox.Show("Passwörter stimmen nicht überein", "Fehler", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            else
+            {
+
+                ISaveUser userpersistenz = new RfcUserPersistence();
+                BapiReturn response = userpersistenz.CreateUser(new User("", txt_lastname.Text, "", txt_username.Text), txt_password.Text);
+                MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
+                    GetIconFromBapiReturn(response));
+                if (response.Type.Equals(BapiReturnType.Success))
+                {
+                    this.Hide();
+                }
             }
         }
 

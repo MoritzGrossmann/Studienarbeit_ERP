@@ -87,7 +87,7 @@ namespace UserAendern.SAP
             }
         }
 
-        public BapiReturn CreateUser(User user)
+        public BapiReturn CreateUser(User user, string password)
         {
             RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
             RfcRepository repository = dest.Repository;
@@ -95,14 +95,14 @@ namespace UserAendern.SAP
 
             var address = repository.GetStructureMetadata("BAPIADDR3").CreateStructure();
             var logond = repository.GetStructureMetadata("BAPILOGOND").CreateStructure();
-            var password = repository.GetStructureMetadata("BAPIPWD").CreateStructure();
+            var bapipassword = repository.GetStructureMetadata("BAPIPWD").CreateStructure();
 
             address.SetValue("LASTNAME", user.LastName);
-            password.SetValue("BAPIPWD", "init1234");
+            bapipassword.SetValue("BAPIPWD", password);
 
             fun.SetValue("USERNAME", user.UserName);
             fun.SetValue("ADDRESS", address);
-            fun.SetValue("PASSWORD", password);
+            fun.SetValue("PASSWORD", bapipassword);
             fun.SetValue("LOGONDATA", logond);
 
             fun.Invoke(dest);

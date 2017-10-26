@@ -60,15 +60,14 @@ type SapBool
     | Other
 
 type ISaveUser = 
-        abstract CreateUser : user : User -> BapiReturn
-        abstract DeleteUser : user : string -> BapiReturn
-        abstract ChangeUser : user : User -> userDetails : UserDetails -> BapiReturn
-        abstract LockUser   : user : string -> BapiReturn
-        abstract UnlockUser : user : string -> BapiReturn
+    abstract CreateUser : user : User   -> password : string ->BapiReturn
+    abstract DeleteUser : user : string -> BapiReturn
+    abstract ChangeUser : user : User   -> userDetails : UserDetails -> BapiReturn
+    abstract LockUser   : user : string -> BapiReturn
+    abstract UnlockUser : user : string -> BapiReturn
     
 
 type ILoadUser = 
     abstract GetUsers : User seq
     abstract GetUserAddress : username : string -> Address
-    abstract GetUserDetail : username : string -> UserDetails
-    
+    abstract GetUserDetail  : username : string -> UserDetails
