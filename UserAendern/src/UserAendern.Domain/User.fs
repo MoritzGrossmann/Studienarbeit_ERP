@@ -1,7 +1,5 @@
 ﻿namespace UserAendern.Domain
 
-open System.Security.Cryptography.X509Certificates
-
 type User = {
     FirstName : string
     LastName : string
@@ -30,16 +28,6 @@ type UserDetails = {
     IsLocked : Lock
 }
 
-type UserCreate = {
-    User: User
-    Address : Address
-}
-
-type SaveResponse = {
-    Erfolg : bool
-    Message : string
-}
-
 type BapiReturnType 
     = Success
     | Error
@@ -51,13 +39,6 @@ type BapiReturn = {
     Type : BapiReturnType
     Message : string
 }
-
-
-
-type SapBool
-    = X
-    | Nothing
-    | Other
 
 type ISaveUser = 
     abstract CreateUser : user : User   -> password : string ->BapiReturn

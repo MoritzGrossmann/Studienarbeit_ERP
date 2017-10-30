@@ -60,7 +60,7 @@ namespace UserAendern.WindowsForm
                     MessageBox.Show(ex.Message, @"Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                 
             }
