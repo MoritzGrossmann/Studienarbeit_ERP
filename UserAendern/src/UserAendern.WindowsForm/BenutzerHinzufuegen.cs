@@ -19,6 +19,9 @@ namespace UserAendern.WindowsForm
             InitializeComponent();
         }
 
+        public MainForm Main { get; set; }
+
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -40,6 +43,7 @@ namespace UserAendern.WindowsForm
                     GetIconFromBapiReturn(response));
                 if (response.Type.Equals(BapiReturnType.Success))
                 {
+                    Main.RefreshUsers();
                     this.Hide();
                 }
             }

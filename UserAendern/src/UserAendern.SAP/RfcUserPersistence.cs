@@ -10,6 +10,8 @@ namespace UserAendern.SAP
 {
     public class RfcUserPersistence : ILoadUser, ISaveUser
     {
+
+        private static readonly RfcDestination Dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
         private bool FromSap(string sapBool)
         {
             if (sapBool == "X")
@@ -21,12 +23,20 @@ namespace UserAendern.SAP
 
         public Address GetUserAddress(string username)
         {
+            IRfcFunction fun;
 
-            RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository repository = dest.Repository;
-            var fun = repository.CreateFunction("BAPI_USER_GET_DETAIL");
-            fun.SetValue("USERNAME", username);
-            fun.Invoke(dest);
+            try
+            {
+                RfcRepository repository = Dest.Repository;
+                fun = repository.CreateFunction("BAPI_USER_GET_DETAIL");
+                fun.SetValue("USERNAME", username);
+                fun.Invoke(Dest);
+            }
+            catch (RfcCommunicationException ex)
+            {
+                throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
+            }
+
             IRfcStructure address = fun.GetStructure("ADDRESS");
 
             string street = address.GetString("STREET");
@@ -39,41 +49,59 @@ namespace UserAendern.SAP
 
         public UserDetails GetUserDetail(string username)
         {
-            RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository repository = dest.Repository;
-            var fun = repository.CreateFunction("BAPI_USER_GET_DETAIL");
-            
-            fun.SetValue("USERNAME", username);
-            fun.Invoke(dest);
+            IRfcFunction fun;
+
+            try
+            {
+                RfcRepository repository = Dest.Repository;
+                fun = repository.CreateFunction("BAPI_USER_GET_DETAIL");
+
+                fun.SetValue("USERNAME", username);
+                fun.Invoke(Dest);
+            }
+            catch (RfcCommunicationException ex)
+            {
+                throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
+            }
 
             IRfcStructure address = fun.GetStructure("ADDRESS");
 
-            string street = address.GetString("STREET");
-            string number = address.GetString("HOUSE_NO");
-            string postcode = address.GetString("POSTL_COD1");
-            string city = address.GetString("CITY");
-            string firstname = address.GetString("FIRSTNAME");
-            string lastname = address.GetString("LASTNAME");
+                string street = address.GetString("STREET");
+                string number = address.GetString("HOUSE_NO");
+                string postcode = address.GetString("POSTL_COD1");
+                string city = address.GetString("CITY");
+                string firstname = address.GetString("FIRSTNAME");
+                string lastname = address.GetString("LASTNAME");
 
-            IRfcStructure locked = fun.GetStructure("ISLOCKED");
+                IRfcStructure locked = fun.GetStructure("ISLOCKED");
 
-            bool wrongLogOn = FromSap(locked.GetString("WRNG_LOGON"));
-            bool noPAssword = FromSap(locked.GetString("NO_USER_PW"));
-            bool localLock = FromSap(locked.GetString("LOCAL_LOCK"));
-            bool globalLock = FromSap(locked.GetString("GLOB_LOCK"));
+                bool wrongLogOn = FromSap(locked.GetString("WRNG_LOGON"));
+                bool noPAssword = FromSap(locked.GetString("NO_USER_PW"));
+                bool localLock = FromSap(locked.GetString("LOCAL_LOCK"));
+                bool globalLock = FromSap(locked.GetString("GLOB_LOCK"));
 
-            return new UserDetails(firstname, lastname,new Address(street, number, postcode, city),
-                new Lock(wrongLogOn, noPAssword, localLock, globalLock));
+                return new UserDetails(firstname, lastname, new Address(street, number, postcode, city),
+                    new Lock(wrongLogOn, noPAssword, localLock, globalLock));
+
         }
 
         public IEnumerable<User> GetUsers
         {
             get
             {
-                RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-                RfcRepository repository = dest.Repository;
-                IRfcFunction fun = repository.CreateFunction("BAPI_USER_GETLIST");
-                fun.Invoke(dest);
+                IRfcFunction fun;
+
+                try
+                {
+                    RfcRepository repository = Dest.Repository;
+                    fun = repository.CreateFunction("BAPI_USER_GETLIST");
+                    fun.Invoke(Dest);
+                }
+                catch (RfcCommunicationException ex)
+                {
+                    throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
+                }
+
                 IRfcTable table = fun.GetTable("USERLIST");
 
                 List<User> users = new List<User>();
@@ -89,93 +117,135 @@ namespace UserAendern.SAP
 
         public BapiReturn CreateUser(User user, string password)
         {
-            RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository repository = dest.Repository;
-            IRfcFunction fun = repository.CreateFunction("BAPI_USER_CREATE1");
+            IRfcFunction fun;
+            RfcRepository repository;
 
-            var address = repository.GetStructureMetadata("BAPIADDR3").CreateStructure();
-            var logond = repository.GetStructureMetadata("BAPILOGOND").CreateStructure();
-            var bapipassword = repository.GetStructureMetadata("BAPIPWD").CreateStructure();
+            try
+            {
+                repository = Dest.Repository;
+                fun = repository.CreateFunction("BAPI_USER_CREATE1");
+                var address = repository.GetStructureMetadata("BAPIADDR3").CreateStructure();
+                var logond = repository.GetStructureMetadata("BAPILOGOND").CreateStructure();
+                var bapipassword = repository.GetStructureMetadata("BAPIPWD").CreateStructure();
 
-            address.SetValue("LASTNAME", user.LastName);
-            bapipassword.SetValue("BAPIPWD", password);
+                address.SetValue("LASTNAME", user.LastName);
+                bapipassword.SetValue("BAPIPWD", password);
 
-            fun.SetValue("USERNAME", user.UserName);
-            fun.SetValue("ADDRESS", address);
-            fun.SetValue("PASSWORD", bapipassword);
-            fun.SetValue("LOGONDATA", logond);
-
-            fun.Invoke(dest);
+                fun.SetValue("USERNAME", user.UserName);
+                fun.SetValue("ADDRESS", address);
+                fun.SetValue("PASSWORD", bapipassword);
+                fun.SetValue("LOGONDATA", logond);
+                fun.Invoke(Dest);
+            }
+            catch (RfcCommunicationException ex)
+            {
+                throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
+            }
 
             IRfcTable returnTable = fun.GetTable("RETURN");
             var firstreturn = returnTable[0];
 
             var response = new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));
 
-            if (response.Type.Equals(BapiReturnType.Error))
+            try
             {
-                repository.CreateFunction("BAPI_TRANSACTION_ROLLBACK").Invoke(dest);
+                if (response.Type.Equals(BapiReturnType.Error))
+                {
+                    RollbackTransaction(repository);
+                }
+                else
+                {
+                    CommitTransaction(repository);
+                }
             }
-            else
+            catch (RfcCommunicationException ex)
             {
-                repository.CreateFunction("BAPI_TRANSACTION_COMMIT").Invoke(dest);
+                throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
             }
+
             return response;
         }
 
         public BapiReturn DeleteUser(string user)
         {
-            RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository repository = dest.Repository;
-            var fun = repository.CreateFunction("BAPI_USER_DELETE");
-            fun.SetValue("USERNAME", user);
-            fun.Invoke(dest);
+            RfcRepository repository;
+            IRfcFunction fun; 
+
+            try
+            {
+                repository = Dest.Repository;
+                fun = repository.CreateFunction("BAPI_USER_DELETE");
+                fun.SetValue("USERNAME", user);
+                fun.Invoke(Dest);
+            }
+            catch (RfcCommunicationException ex)
+            {
+                throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
+            }
 
             IRfcTable returnTable = fun.GetTable("RETURN");
             var firstreturn = returnTable[0];
             var response = new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));
 
-            if (response.Type.Equals(BapiReturnType.Error))
+            try
             {
-                repository.CreateFunction("BAPI_TRANSACTION_ROLLBACK").Invoke(dest);
+                if (response.Type.Equals(BapiReturnType.Error))
+                {
+                    RollbackTransaction(repository);
+                }
+                else
+                {
+                    CommitTransaction(repository);
+                }
             }
-            else
+            catch (RfcCommunicationException ex)
             {
-                repository.CreateFunction("BAPI_TRANSACTION_COMMIT").Invoke(dest);
+                throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
             }
             return response;
         }
 
         public BapiReturn ChangeUser(User user, UserDetails userDetails)
         {
-            RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository repository = dest.Repository;
+            IRfcFunction fun;
+            RfcRepository repository;
 
-            var address = repository.GetStructureMetadata("BAPIADDR3").CreateStructure();
-            var addressx = repository.GetStructureMetadata("BAPIADDR3X").CreateStructure();
+            try
+            {
+                repository= Dest.Repository;
 
-            var fun = repository.CreateFunction("BAPI_USER_CHANGE");
+                var address = repository.GetStructureMetadata("BAPIADDR3").CreateStructure();
+                var addressx = repository.GetStructureMetadata("BAPIADDR3X").CreateStructure();
 
-            fun.SetValue("USERNAME", user.UserName);
+                fun = repository.CreateFunction("BAPI_USER_CHANGE");
 
-            address.SetValue("STREET", userDetails.Address.Street);
-            address.SetValue("HOUSE_NO", userDetails.Address.Number);
-            address.SetValue("POSTL_COD1", userDetails.Address.Postcode);
-            address.SetValue("CITY", userDetails.Address.City);
-            address.SetValue("FIRSTNAME", userDetails.Firstname);
-            address.SetValue("LASTNAME", userDetails.Lastname);
+                fun.SetValue("USERNAME", user.UserName);
+
+                address.SetValue("STREET", userDetails.Address.Street);
+                address.SetValue("HOUSE_NO", userDetails.Address.Number);
+                address.SetValue("POSTL_COD1", userDetails.Address.Postcode);
+                address.SetValue("CITY", userDetails.Address.City);
+                address.SetValue("FIRSTNAME", userDetails.Firstname);
+                address.SetValue("LASTNAME", userDetails.Lastname);
 
 
-            addressx.SetValue("STREET", "X");
-            addressx.SetValue("HOUSE_NO", "X");
-            addressx.SetValue("POSTL_COD1", "X");
-            addressx.SetValue("CITY", "X");
-            addressx.SetValue("FIRSTNAME", "X");
-            addressx.SetValue("LASTNAME", "X");
+                addressx.SetValue("STREET", "X");
+                addressx.SetValue("HOUSE_NO", "X");
+                addressx.SetValue("POSTL_COD1", "X");
+                addressx.SetValue("CITY", "X");
+                addressx.SetValue("FIRSTNAME", "X");
+                addressx.SetValue("LASTNAME", "X");
 
-            fun.SetValue("ADDRESS", address);
-            fun.SetValue("ADDRESSX", addressx);
-            fun.Invoke(dest);
+                fun.SetValue("ADDRESS", address);
+                fun.SetValue("ADDRESSX", addressx);
+
+
+                fun.Invoke(Dest);
+            }
+            catch (RfcCommunicationException ex)
+            {
+                throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
+            }
 
             IRfcTable returnTable = fun.GetTable("RETURN");
 
@@ -183,24 +253,39 @@ namespace UserAendern.SAP
 
             var response = new BapiReturn(FromSapReturn(firstreturn.GetString("TYPE")), firstreturn.GetString("MESSAGE"));
 
-            if (response.Type.Equals(BapiReturnType.Error))
-            {
-                repository.CreateFunction("BAPI_TRANSACTION_ROLLBACK").Invoke(dest);
+
+            try { 
+                if (response.Type.Equals(BapiReturnType.Error))
+                {
+                    RollbackTransaction(repository);
+                }
+                else
+                {
+                    CommitTransaction(repository);
+                }
             }
-            else
+            catch (RfcCommunicationException ex)
             {
-                repository.CreateFunction("BAPI_TRANSACTION_COMMIT").Invoke(dest);
+                throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
             }
             return response;
         }
 
         public BapiReturn LockUser(string user)
         {
-            RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository repository = dest.Repository;
-            var fun = repository.CreateFunction("BAPI_USER_LOCK");
-            fun.SetValue("USERNAME", user);
-            fun.Invoke(dest);
+            IRfcFunction fun;
+            try
+            {
+                RfcRepository repository = Dest.Repository;
+                fun = repository.CreateFunction("BAPI_USER_LOCK");
+                fun.SetValue("USERNAME", user);
+                fun.Invoke(Dest);
+            }
+            catch (RfcCommunicationException ex)
+            {
+                throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
+            }
+
             IRfcTable returnTable = fun.GetTable("RETURN");
             var firstreturn = returnTable[0];
 
@@ -209,11 +294,18 @@ namespace UserAendern.SAP
 
         public BapiReturn UnlockUser(string user)
         {
-            RfcDestination dest = RfcDestinationManager.GetDestination(new SapDestinationConfig().GetParameters(null));
-            RfcRepository repository = dest.Repository;
-            var fun = repository.CreateFunction("BAPI_USER_UNLOCK");
-            fun.SetValue("USERNAME", user);
-            fun.Invoke(dest);
+            IRfcFunction fun;
+            try
+            {
+                RfcRepository repository = Dest.Repository;
+                fun = repository.CreateFunction("BAPI_USER_UNLOCK");
+                fun.SetValue("USERNAME", user);
+                fun.Invoke(Dest);
+            }
+            catch (RfcCommunicationException ex)
+            {
+                throw new SapCommunicationException("Keine Verbindung zum SAP-Server", ex);
+            }
 
             IRfcTable returnTable = fun.GetTable("RETURN");
             var firstreturn = returnTable[0];
@@ -242,6 +334,16 @@ namespace UserAendern.SAP
                     return BapiReturnType.Abort;
             }
             return BapiReturnType.Info;
+        }
+
+        private void RollbackTransaction(RfcRepository repository)
+        {
+            repository.CreateFunction("BAPI_TRANSACTION_ROLLBACK").Invoke(Dest);
+        }
+
+        private void CommitTransaction(RfcRepository repository)
+        {
+            repository.CreateFunction("BAPI_TRANSACTION_COMMIT").Invoke(Dest);
         }
     }
 }

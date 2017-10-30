@@ -41,16 +41,24 @@ namespace UserAendern.WindowsForm
 
                 _currentUser = new User("", "", "", user);
 
-                var details = _userpersistenceLoad.GetUserDetail(user);
+                try
+                {
 
-                _currentUserDetails = details;
+                    var details = _userpersistenceLoad.GetUserDetail(user);
 
-                txt_street.Text = details.Address.Street;
-                txt_number.Text = details.Address.Number;
-                txt_postcode.Text = details.Address.Postcode;
-                txt_city.Text = details.Address.City;
-                txt_firstname.Text = details.Firstname;
-                txt_lastname.Text = details.Lastname;
+                    _currentUserDetails = details;
+
+                    txt_street.Text = details.Address.Street;
+                    txt_number.Text = details.Address.Number;
+                    txt_postcode.Text = details.Address.Postcode;
+                    txt_city.Text = details.Address.City;
+                    txt_firstname.Text = details.Firstname;
+                    txt_lastname.Text = details.Lastname;
+                }
+                catch (SapCommunicationException ex)
+                {
+                    MessageBox.Show(ex.Message, @"Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (NullReferenceException ex)
             {
@@ -60,29 +68,44 @@ namespace UserAendern.WindowsForm
 
         private void btn_unlock_Click(object sender, EventArgs e)
         {
-            var response = _userpersistenceSave.UnlockUser(txt_username.Text);
-            MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
-                GetIconFromBapiReturn(response));
+
+            try
+            {
+                var response = _userpersistenceSave.UnlockUser(txt_username.Text);
+                MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
+                    GetIconFromBapiReturn(response));
+            } 
+            catch (SapCommunicationException ex)
+            {
+                MessageBox.Show(ex.Message, @"Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btn_add_user_Click(object sender, EventArgs e)
         {
-            BenutzerHinzufuegen form = new BenutzerHinzufuegen();
+            BenutzerHinzufuegen form = new BenutzerHinzufuegen() { Main = this};
             form.Show();
         }
 
         private void btn_delete_Click(object sender, EventArgs e)
         {
-
-            var response = _userpersistenceSave.DeleteUser(txt_username.Text);
-            if (response.Type.IsSuccess)
+            try
             {
-                RefreshUsers();
-            }
 
-            MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
-                GetIconFromBapiReturn(response));
-        }
+                var response = _userpersistenceSave.DeleteUser(txt_username.Text);
+                if (response.Type.IsSuccess)
+                {
+                    RefreshUsers();
+                }
+
+                MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
+                    GetIconFromBapiReturn(response));
+            }                 
+            catch (SapCommunicationException ex)
+            {
+                MessageBox.Show(ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+}
 
         private void txt_query_KeyDown(object sender, KeyEventArgs e)
         {
@@ -94,17 +117,19 @@ namespace UserAendern.WindowsForm
                     listbox_users.Items.Add(new UserRow(user));
                 }
             }
-            if (e.KeyCode == Keys.Back && txt_query.Text.Length < 2)
-            {
-                RefreshUsers();
-            }
         }
 
         private void btn_lock_Click(object sender, EventArgs e)
         {
+            try { 
             var response = _userpersistenceSave.LockUser(txt_username.Text);
             MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
                 GetIconFromBapiReturn(response));
+            }
+            catch (SapCommunicationException ex)
+            {
+                MessageBox.Show(ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private MessageBoxIcon GetIconFromBapiReturn(BapiReturn bapiReturn)
@@ -133,12 +158,18 @@ namespace UserAendern.WindowsForm
 
         private void btn_save_Click(object sender, EventArgs e)
         {
+            try { 
             var response = _userpersistenceSave.ChangeUser(_currentUser, new UserDetails(txt_firstname.Text, txt_lastname.Text, new Address(txt_street.Text, txt_number.Text, txt_postcode.Text, txt_city.Text), _currentUserDetails.IsLocked));
             MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
                 GetIconFromBapiReturn(response));
+            }
+            catch (SapCommunicationException ex)
+            {
+                MessageBox.Show(ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void RefreshUsers()
+        internal void RefreshUsers()
         {
 
             try
@@ -161,9 +192,9 @@ namespace UserAendern.WindowsForm
                     }
                 }
             }
-            catch (Exception)
+            catch (SapCommunicationException ex)
             {
-                MessageBox.Show("Keine Verbindung zum SAP-Server", "Fehler",  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Fehler",  MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
