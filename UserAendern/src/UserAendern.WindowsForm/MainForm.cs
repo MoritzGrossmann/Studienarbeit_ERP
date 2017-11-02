@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Xsl;
 using UserAendern.Domain;
 using UserAendern.SAP;
 using UserAendern.WindowsForm.View;
@@ -163,7 +157,7 @@ namespace UserAendern.WindowsForm
             MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
                 GetIconFromBapiReturn(response));
             }
-            catch (SapCommunicationException ex)
+            catch (UserAendern.SAP.SapCommunicationException ex)
             {
                 MessageBox.Show(ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
