@@ -38,13 +38,23 @@ namespace UserAendern.WindowsForm
             {
 
                 ISaveUser userpersistenz = new RfcUserPersistence();
-                BapiReturn response = userpersistenz.CreateUser(new User("", txt_lastname.Text, "", txt_username.Text), txt_password.Text);
-                MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
-                    GetIconFromBapiReturn(response));
-                if (response.Type.Equals(BapiReturnType.Success))
+
+                try
                 {
-                    Main.RefreshUsers();
-                    this.Hide();
+                    BapiReturn response =
+                        userpersistenz.CreateUser(new User("", txt_lastname.Text, "", txt_username.Text),
+                            txt_password.Text);
+                    MessageBox.Show(response.Message, response.Type.IsError ? "Fehler" : "Erfolg", MessageBoxButtons.OK,
+                        GetIconFromBapiReturn(response));
+                    if (response.Type.Equals(BapiReturnType.Success))
+                    {
+                        Main.RefreshUsers();
+                        this.Hide();
+                    }
+                }
+                catch (SapCommunicationException ex)
+                {
+                    MessageBox.Show(ex.Message, @"Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -71,6 +81,11 @@ namespace UserAendern.WindowsForm
             {
                 return MessageBoxIcon.None;
             }
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

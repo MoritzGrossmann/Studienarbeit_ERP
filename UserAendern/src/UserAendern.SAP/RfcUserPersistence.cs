@@ -120,6 +120,11 @@ namespace UserAendern.SAP
             IRfcFunction fun;
             RfcRepository repository;
 
+            if (password.Trim() == "")
+            {
+                throw new SapCommunicationException("Bitte geben sie ein Passowrt ein!");
+            }
+
             try
             {
                 repository = Dest.Repository;

@@ -14,7 +14,7 @@ Der einzige Fehler, welcher beim Laden der User auftreten kann, ist dass keine V
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=\textwidth]{images/Main.png}
+		\includegraphics[width=10cm]{images/Main.png}
 	\end{center}
 	\caption{Hauptmaske}
 	\label{fig:main}
@@ -31,11 +31,11 @@ Der einzige Fehler, welcher beim Laden der User auftreten kann, ist dass keine V
 \subsection{User-Details anzeigen}
 
 Klickt man in der ListBox auf einen User, so werden Details zu diesem geladen. In diesem Programm werden sein Vorname, der Nachname sowie die Anschrift geladen. 
-Technisch ist noch vieles Weiteres möglich, was in dieser Arbeit allerdings nicht behandelt wird. Zu sehen ist dies in \ref{fig:user_anzeigen}. 
+Technisch ist noch vieles Weiteres möglich, was in dieser Arbeit allerdings nicht behandelt wird. Zu sehen ist dies in Abbildung \ref{fig:user_anzeigen}. 
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=\textwidth]{images/User_Anzeigen.png}
+		\includegraphics[width=10cm]{images/User_Anzeigen.png}
 	\end{center}
 	\caption{Userdetails anzeigen}
 	\label{fig:user_anzeigen}
@@ -43,12 +43,81 @@ Technisch ist noch vieles Weiteres möglich, was in dieser Arbeit allerdings nic
 
 \subsection{User erstellen}
 
+Um einen User zu erstellen klickt man in der Hauptmaske auf den Button "Benutzer hinzufügen". Dadurch öffnet sich ein neues Fenster. Hier muss der Username des User, welcher angelegt werden soll, eingegeben werden. Des weiteren wird der Nachname sowie ein Passwort benötigt. Um die Eingaben zu bestätigen klickt man anschließend auf "OK". 
 
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=10cm]{images/User_Hinzufuegen.png}
+	\end{center}
+	\caption{Die Oberfläche um Benutzer hinzuzufügen}
+	\label{fig:user_add}
+\end{figure}
+
+\subsubsection{Fehlerbehandlung}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=10cm]{images/User_Schon_Vorhanden.png}
+	\end{center}
+	\caption{Anzulegender Benutzer existiert bereits}
+	\label{fig:user_add_exist}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=10cm]{images/User_Hinzufuegen_Password.png}
+	\end{center}
+	\caption{Eingegebene Passwörter stimmen nicht überein}
+	\label{fig:user_add_password}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=10cm]{images/No_Password.png}
+	\end{center}
+	\caption{Kein Passwort eingegeben}
+	\label{fig:user_no_password}
+\end{figure}
 
 \subsection{User editieren}
 
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=10cm]{images/User_Changed.png}
+	\end{center}
+	\caption{User MGROSSMANN erfolgreich geändert}
+	\label{fig:user_change}
+\end{figure}
+
 \subsection{User sperren}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=10cm]{images/User_Locked.png}
+	\end{center}
+	\caption{User MGROSSMANN erfolgreich gesperrt}
+	\label{fig:user_lock}
+\end{figure}
 
 \subsection{User entsperren}
 
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=10cm]{images/User_Unocked.png}
+	\end{center}
+	\caption{User MGROSSMANN erfolgreich entsperrt}
+	\label{fig:user_unlock}
+\end{figure}
+
 \subsection{User löschen}
+
+Wurde ein User angewählt, kann er über den Button 'Benutzer löschen' gelöscht werden. War dies Erfolgreich, erscheint eine Meldung wie in Abbildung \ref{fig:user_delete}. 
+Der User wird gleichzeitig auch aus der Userliste entfernt. 
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=10cm]{images/User_Delete.png}
+	\end{center}
+	\caption{User MGROSSMANN2 erfolgreich gelöscht}
+	\label{fig:user_delete}
+\end{figure}

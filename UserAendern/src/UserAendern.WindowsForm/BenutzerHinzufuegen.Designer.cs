@@ -38,6 +38,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txt_password = new System.Windows.Forms.TextBox();
             this.txt_password_wdh = new System.Windows.Forms.TextBox();
+            this.btn_cancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -114,7 +115,7 @@
             // txt_password
             // 
             this.txt_password.Location = new System.Drawing.Point(136, 79);
-            this.txt_password.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_password.Margin = new System.Windows.Forms.Padding(2);
             this.txt_password.Name = "txt_password";
             this.txt_password.PasswordChar = '*';
             this.txt_password.Size = new System.Drawing.Size(177, 20);
@@ -123,17 +124,28 @@
             // txt_password_wdh
             // 
             this.txt_password_wdh.Location = new System.Drawing.Point(136, 108);
-            this.txt_password_wdh.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_password_wdh.Margin = new System.Windows.Forms.Padding(2);
             this.txt_password_wdh.Name = "txt_password_wdh";
             this.txt_password_wdh.PasswordChar = '*';
             this.txt_password_wdh.Size = new System.Drawing.Size(177, 20);
             this.txt_password_wdh.TabIndex = 9;
+            // 
+            // btn_cancel
+            // 
+            this.btn_cancel.Location = new System.Drawing.Point(95, 264);
+            this.btn_cancel.Name = "btn_cancel";
+            this.btn_cancel.Size = new System.Drawing.Size(75, 23);
+            this.btn_cancel.TabIndex = 10;
+            this.btn_cancel.Text = "Abbrechen";
+            this.btn_cancel.UseVisualStyleBackColor = true;
+            this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
             // 
             // BenutzerHinzufuegen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(325, 299);
+            this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.txt_password_wdh);
             this.Controls.Add(this.txt_password);
             this.Controls.Add(this.label4);
@@ -163,5 +175,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txt_password;
         private System.Windows.Forms.TextBox txt_password_wdh;
+        private System.Windows.Forms.Button btn_cancel;
     }
 }
