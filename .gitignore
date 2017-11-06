@@ -294,3 +294,6 @@ __pycache__/
 *.gz
 *.log
 *.pdf
+*.fdb_latexmk
+*.fls
+/Dokumentation/main.synctex(busy)
